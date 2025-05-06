@@ -24,7 +24,7 @@ public class MembershipPackage {
     private Integer packageTotalHour;
 
     @Column(name = "is_unlimited")
-    private Boolean isUnlimited = false;
+    private Boolean isUnlimited;
 
     @JsonManagedReference
     @OneToMany(mappedBy = "packageId")

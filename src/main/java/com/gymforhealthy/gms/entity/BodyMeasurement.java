@@ -18,6 +18,9 @@ public class BodyMeasurement {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @Column(name = "height")
+    private BigDecimal height;
+
     @Column(name = "weight")
     private BigDecimal weight;
 
