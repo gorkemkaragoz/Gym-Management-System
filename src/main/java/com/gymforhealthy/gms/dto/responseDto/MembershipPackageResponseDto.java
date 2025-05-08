@@ -14,5 +14,4 @@ public class MembershipPackageResponseDto {
     private Integer packageTotalHour;
     private Boolean isUnlimited;
 
-
 }

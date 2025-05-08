@@ -8,4 +8,5 @@ import java.util.List;
 public interface BodyMeasurementService {
     BodyMeasurementResponseDto save(BodyMeasurementRequestDto dto);
     List<BodyMeasurementResponseDto> findByUserId(Integer userId);
+    List<BodyMeasurementResponseDto> findAll();
 }

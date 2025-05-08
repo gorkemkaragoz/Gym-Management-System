@@ -1,17 +1,15 @@
-package com.gymforhealthy.gms.service;
+    package com.gymforhealthy.gms.service;
 
-import com.gymforhealthy.gms.dto.requestDto.UserRequestDto;
-import com.gymforhealthy.gms.dto.responseDto.UserResponseDto;
-import com.gymforhealthy.gms.entity.User;
+    import com.gymforhealthy.gms.dto.requestDto.UserRequestDto;
+    import com.gymforhealthy.gms.dto.responseDto.UserResponseDto;
 
-import java.util.List;
-import java.util.Optional;
+    import java.util.List;
 
-public interface UserService {
-    UserResponseDto save(UserRequestDto userRequestDto);
-    UserResponseDto update(Integer id, UserRequestDto userRequestDto);
-    void delete(Integer id);
-    UserResponseDto findById(Integer id);
-    List<UserResponseDto> findAll();
-    UserResponseDto findByTcNo(String tcNo);
-}
+    public interface UserService {
+        UserResponseDto save(UserRequestDto userRequestDto);
+        UserResponseDto update(Integer id, UserRequestDto userRequestDto);
+        void delete(Integer id);
+        UserResponseDto findById(Integer id);
+        List<UserResponseDto> findAll();
+        UserResponseDto findByTcNo(String tcNo);
+    }

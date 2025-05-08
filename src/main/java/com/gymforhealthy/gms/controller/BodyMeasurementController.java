@@ -26,4 +26,8 @@ public class BodyMeasurementController {
         return ResponseEntity.ok(bodyMeasurementService.findByUserId(userId));
     }
 
+    @GetMapping
+    public ResponseEntity<List<BodyMeasurementResponseDto>> getAll() {
+        return ResponseEntity.ok(bodyMeasurementService.findAll());
+    }
 }

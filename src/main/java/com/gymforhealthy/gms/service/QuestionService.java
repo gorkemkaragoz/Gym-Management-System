@@ -10,4 +10,5 @@ public interface QuestionService {
     QuestionResponseDto update(Integer id, QuestionRequestDto questionRequestDto);
     QuestionResponseDto findById(Integer id);
     List<QuestionResponseDto> findAll();
+    List<QuestionResponseDto> findBySenderId(Integer senderId);
 }

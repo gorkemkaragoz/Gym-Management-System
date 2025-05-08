@@ -8,8 +8,6 @@ import lombok.*;
 @AllArgsConstructor
 @Builder
 public class UserPhotoRequestDto {
-
     private byte[] photo;
     private Integer userId;
-
 }

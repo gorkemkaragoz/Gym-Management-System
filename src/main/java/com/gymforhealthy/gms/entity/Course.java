@@ -4,6 +4,9 @@ import jakarta.persistence.*;
 import lombok.*;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Positive;
 import java.util.List;
 
 @Getter
@@ -22,6 +25,8 @@ public class Course {
     private String name;
 
     @Column(name = "max_capacity")
+    @Positive
+    @Max(25)
     private Integer maxCapacity = 25;
 
     @ManyToOne
@@ -29,11 +34,12 @@ public class Course {
     @JsonBackReference
     private User trainer;
 
+    @OneToMany(mappedBy = "course", cascade = CascadeType.ALL)
     @JsonManagedReference
-    @OneToMany(mappedBy = "course")
     private List<CourseSchedule> schedules;
 
+    @OneToMany(mappedBy = "course", cascade = CascadeType.ALL)
     @JsonManagedReference
-    @OneToMany(mappedBy = "course")
     private List<CourseEnrollment> enrollments;
+
 }

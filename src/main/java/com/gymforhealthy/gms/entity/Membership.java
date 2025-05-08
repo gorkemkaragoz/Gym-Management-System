@@ -3,6 +3,8 @@ package com.gymforhealthy.gms.entity;
 import jakarta.persistence.*;
 import lombok.*;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+
+import javax.validation.constraints.PositiveOrZero;
 import java.time.LocalDate;
 
 @Getter
@@ -18,6 +20,7 @@ public class Membership {
     private Integer id;
 
     @Column(name = "remaining_hours")
+    @PositiveOrZero
     private Integer remainingHours;
 
     @Column(name = "start_date")
@@ -38,7 +41,7 @@ public class Membership {
     @ManyToOne
     @JoinColumn(name = "package_id", nullable = false)
     @JsonBackReference
-    private MembershipPackage packageId;
+    private MembershipPackage membershipPackage;
 
     public enum MembershipStatus {
         ACTIVE,

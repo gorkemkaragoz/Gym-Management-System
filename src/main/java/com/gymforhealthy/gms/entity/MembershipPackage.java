@@ -26,7 +26,8 @@ public class MembershipPackage {
     @Column(name = "is_unlimited")
     private Boolean isUnlimited;
 
+    @OneToMany(mappedBy = "membershipPackage", cascade = CascadeType.ALL)
     @JsonManagedReference
-    @OneToMany(mappedBy = "packageId")
     private List<Membership> memberships;
+
 }

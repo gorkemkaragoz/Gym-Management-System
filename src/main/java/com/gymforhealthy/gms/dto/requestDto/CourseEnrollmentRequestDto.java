@@ -1,6 +1,5 @@
 package com.gymforhealthy.gms.dto.requestDto;
 
-
 import lombok.*;
 
 @Getter

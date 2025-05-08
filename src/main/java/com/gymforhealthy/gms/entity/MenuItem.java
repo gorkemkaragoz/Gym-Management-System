@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.*;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+import javax.validation.constraints.PositiveOrZero;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -23,6 +25,7 @@ public class MenuItem {
     private String name;
 
     @Column(name = "price")
+    @PositiveOrZero
     private BigDecimal price;
 
     @ManyToOne
@@ -30,11 +33,12 @@ public class MenuItem {
     @JsonBackReference
     private FoodDrinkType type;
 
+    @OneToMany(mappedBy = "item", cascade = CascadeType.ALL)
     @JsonManagedReference
-    @OneToMany(mappedBy = "item")
     private List<ItemAllergen> allergens;
 
+    @OneToMany(mappedBy = "item", cascade = CascadeType.ALL)
     @JsonManagedReference
-    @OneToMany(mappedBy = "item")
     private List<ItemIngredient> ingredients;
+
 }

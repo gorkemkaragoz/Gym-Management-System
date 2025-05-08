@@ -9,4 +9,5 @@ public interface TrainerCertificateService {
     TrainerCertificateResponseDto save(TrainerCertificateRequestDto trainerCertificateRequestDto);
     List<TrainerCertificateResponseDto> findByTrainerId(Integer trainerId);
     void delete(Integer id);
+    List<TrainerCertificateResponseDto> findByUserId(Integer userId);
 }

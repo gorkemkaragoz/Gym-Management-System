@@ -11,4 +11,5 @@ public interface MembershipService {
     void delete(Integer id);
     MembershipResponseDto findById(Integer id);
     List<MembershipResponseDto> findAll();
+    List<MembershipResponseDto> findByUserId(Integer userId);
 }

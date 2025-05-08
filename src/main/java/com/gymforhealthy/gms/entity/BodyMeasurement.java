@@ -6,6 +6,8 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
+import javax.validation.constraints.Positive;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -19,12 +21,15 @@ public class BodyMeasurement {
     private Integer id;
 
     @Column(name = "height")
+    @Positive
     private BigDecimal height;
 
     @Column(name = "weight")
+    @Positive
     private BigDecimal weight;
 
     @Column(name = "bmi")
+    @Positive
     private BigDecimal bmi;
 
     @Column(name = "created_date")

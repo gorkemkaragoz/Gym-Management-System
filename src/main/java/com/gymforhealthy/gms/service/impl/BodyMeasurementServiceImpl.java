@@ -45,11 +45,23 @@ public class BodyMeasurementServiceImpl implements BodyMeasurementService {
 
     @Override
     public List<BodyMeasurementResponseDto> findByUserId(Integer userId) {
-        return bodyMeasurementRepository.findAll().stream()
-                .filter(b -> b.getUser().getId().equals(userId))
-                .map(b -> {
-                    BodyMeasurementResponseDto dto = modelMapper.map(b, BodyMeasurementResponseDto.class);
-                    dto.setUserId(b.getUser().getId());
+        return bodyMeasurementRepository.findByUserId(userId)
+                .stream()
+                .map(bm -> {
+                    BodyMeasurementResponseDto dto = modelMapper.map(bm, BodyMeasurementResponseDto.class);
+                    dto.setUserId(bm.getUser().getId());
+                    return dto;
+                })
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<BodyMeasurementResponseDto> findAll() {
+        return bodyMeasurementRepository.findAll()
+                .stream()
+                .map(bm -> {
+                    BodyMeasurementResponseDto dto = modelMapper.map(bm, BodyMeasurementResponseDto.class);
+                    dto.setUserId(bm.getUser().getId());
                     return dto;
                 })
                 .collect(Collectors.toList());
@@ -60,5 +72,4 @@ public class BodyMeasurementServiceImpl implements BodyMeasurementService {
         BigDecimal heightM = heightCm.divide(BigDecimal.valueOf(100), 2, RoundingMode.HALF_UP);
         return weight.divide(heightM.pow(2), 2, RoundingMode.HALF_UP);
     }
-
 }

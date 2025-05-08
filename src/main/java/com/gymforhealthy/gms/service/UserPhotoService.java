@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface UserPhotoService {
     UserPhotoResponseDto upload(UserPhotoRequestDto userPhotoRequestDto);
-    List<UserPhotoResponseDto> findByUserId(Integer userId);
     void delete(Integer photoId);
     UserPhotoResponseDto findById(Integer photoId);
+    List<UserPhotoResponseDto> findByUserId(Integer userId);
 }

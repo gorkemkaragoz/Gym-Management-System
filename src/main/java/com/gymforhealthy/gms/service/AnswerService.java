@@ -9,4 +9,5 @@ public interface AnswerService {
     AnswerResponseDto save(AnswerRequestDto answerRequestDto);
     AnswerResponseDto findById(Integer id);
     List<AnswerResponseDto> findAll();
+    List<AnswerResponseDto> findByResponderId(Integer responderId);
 }

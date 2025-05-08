@@ -44,43 +44,44 @@ public class User {
     @JsonBackReference
     private Role role;
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     @JsonManagedReference
-    @OneToMany(mappedBy = "user")
     private List<UserPhoto> userPhotos;
 
+    @OneToMany(mappedBy = "trainer", cascade = CascadeType.ALL)
     @JsonManagedReference
-    @OneToMany(mappedBy = "trainer")
     private List<Course> trainerCourses;
 
+    @OneToMany(mappedBy = "trainer", cascade = CascadeType.ALL)
     @JsonManagedReference
-    @OneToMany(mappedBy = "trainer")
     private List<CourseSchedule> trainerSchedules;
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     @JsonManagedReference
-    @OneToMany(mappedBy = "user")
     private List<TrainerCertificate> trainerCertificates;
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     @JsonManagedReference
-    @OneToMany(mappedBy = "user")
     private List<CourseEnrollment> courseEnrollments;
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     @JsonManagedReference
-    @OneToMany(mappedBy = "user")
     private List<BodyMeasurement> bodyMeasurements;
 
+    @OneToMany(mappedBy = "sender", cascade = CascadeType.ALL)
     @JsonManagedReference
-    @OneToMany(mappedBy = "sender")
     private List<Question> sentQuestions;
 
+    @OneToMany(mappedBy = "recipient", cascade = CascadeType.ALL)
     @JsonManagedReference
-    @OneToMany(mappedBy = "recipient")
     private List<QuestionAssignment> receivedAssignments;
 
+    @OneToMany(mappedBy = "responder", cascade = CascadeType.ALL)
     @JsonManagedReference
-    @OneToMany(mappedBy = "responder")
     private List<Answer> givenAnswers;
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     @JsonManagedReference
-    @OneToMany(mappedBy = "user")
     private List<Membership> memberships;
+
 }

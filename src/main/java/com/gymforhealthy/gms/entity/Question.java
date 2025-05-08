@@ -38,13 +38,14 @@ public class Question {
     @JsonBackReference
     private User sender;
 
+    @OneToMany(mappedBy = "question", cascade = CascadeType.ALL)
     @JsonManagedReference
-    @OneToMany(mappedBy = "question")
     private List<Answer> answers;
 
+    @OneToMany(mappedBy = "question", cascade = CascadeType.ALL)
     @JsonManagedReference
-    @OneToMany(mappedBy = "question")
     private List<QuestionAssignment> assignments;
+
 
     public enum SubjectType {
         SUGGESTION,

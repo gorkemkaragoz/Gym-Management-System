@@ -20,7 +20,8 @@ public class FoodDrinkType {
     @Column(name = "name", nullable = false)
     private String name;
 
+    @OneToMany(mappedBy = "type", cascade = CascadeType.ALL)
     @JsonManagedReference
-    @OneToMany(mappedBy = "type")
     private List<MenuItem> menuItems;
+
 }
