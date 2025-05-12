@@ -6,8 +6,9 @@ import com.gymforhealthy.gms.dto.responseDto.CourseScheduleResponseDto;
 import java.util.List;
 
 public interface CourseScheduleService {
-    CourseScheduleResponseDto save(CourseScheduleRequestDto courseScheduleRequestDto);
-    CourseScheduleResponseDto update(Integer id, CourseScheduleRequestDto courseScheduleRequestDto);
-    void delete(Integer id);
-    List<CourseScheduleResponseDto> findAll();
+    CourseScheduleResponseDto saveCourseSchedule(CourseScheduleRequestDto courseScheduleRequestDto);
+    CourseScheduleResponseDto updateCourseSchedule(Long id, CourseScheduleRequestDto courseScheduleRequestDto);
+    List<CourseScheduleResponseDto> findAllCourseSchedule();
+    CourseScheduleResponseDto findCourseScheduleById(Long id);
+    void delete(Long id);
 }

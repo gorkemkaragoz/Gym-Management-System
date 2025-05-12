@@ -6,9 +6,9 @@ import com.gymforhealthy.gms.dto.responseDto.CourseResponseDto;
 import java.util.List;
 
 public interface CourseService {
-    CourseResponseDto save(CourseRequestDto courseRequestDto);
-    CourseResponseDto update(Integer id, CourseRequestDto courseRequestDto);
-    void delete(Integer id);
-    CourseResponseDto findById(Integer id);
-    List<CourseResponseDto> findAll();
+    CourseResponseDto saveCourse(CourseRequestDto courseRequestDto);
+    CourseResponseDto updateCourse(Long id, CourseRequestDto courseRequestDto);
+    List<CourseResponseDto> findAllCourse();
+    CourseResponseDto findCourseById(Long id);
+    void deleteCourse(Long id);
 }

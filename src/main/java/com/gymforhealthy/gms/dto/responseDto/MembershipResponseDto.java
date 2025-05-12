@@ -11,12 +11,12 @@ import java.time.LocalDate;
 @Builder
 public class MembershipResponseDto {
 
-    private Integer id;
+    private Long id;
     private Integer remainingHours;
     private LocalDate startDate;
     private LocalDate endDate;
     private String membershipStatus;
-    private Integer userId;
+    private Long userId;
     private String packageName;
 
 }

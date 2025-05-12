@@ -9,9 +9,9 @@ import lombok.*;
 @Builder
 public class CourseEnrollmentResponseDto {
 
-    private Integer id;
-    private Integer userId;
-    private Integer courseId;
+    private Long id;
+    private Long userId;
+    private Long courseId;
     private String status; // ACTIVE, COMPLETED, CANCELLED, WAITING
 
 }

@@ -6,10 +6,10 @@ import com.gymforhealthy.gms.dto.responseDto.MembershipResponseDto;
 import java.util.List;
 
 public interface MembershipService {
-    MembershipResponseDto save(MembershipRequestDto membershipRequestDto);
-    MembershipResponseDto update(Integer id, MembershipRequestDto membershipRequestDto);
-    void delete(Integer id);
-    MembershipResponseDto findById(Integer id);
-    List<MembershipResponseDto> findAll();
-    List<MembershipResponseDto> findByUserId(Integer userId);
+
+    MembershipResponseDto saveMembership(MembershipRequestDto membershipRequestDto);
+    MembershipResponseDto updateMembership(Long id, MembershipRequestDto membershipRequestDto);
+    List<MembershipResponseDto> findAllMemberships();
+    MembershipResponseDto findMembershipById(Long id);
+    void deleteMembership(Long id);
 }

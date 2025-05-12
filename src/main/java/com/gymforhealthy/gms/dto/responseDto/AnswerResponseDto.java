@@ -10,9 +10,9 @@ import java.time.LocalDateTime;
 @Builder
 public class AnswerResponseDto {
 
-    private Integer id;
+    private Long id;
     private String response;
     private LocalDateTime respondedAt;
-    private Integer questionId;
-    private Integer responderId;
+    private Long questionId;
+    private Long responderId;
 }

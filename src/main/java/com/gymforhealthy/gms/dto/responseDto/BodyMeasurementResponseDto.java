@@ -11,11 +11,11 @@ import java.time.LocalDateTime;
 @Builder
 public class BodyMeasurementResponseDto {
 
-    private Integer id;
+    private Long id;
     private BigDecimal height;
     private BigDecimal weight;
     private BigDecimal bmi;
     private LocalDateTime createdTime;
-    private Integer userId;
+    private Long userId;
 
 }

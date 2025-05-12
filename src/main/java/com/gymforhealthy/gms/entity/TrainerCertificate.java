@@ -15,7 +15,7 @@ public class TrainerCertificate {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     @Column(name = "certificate_name", nullable = false)
     private String certificateName;

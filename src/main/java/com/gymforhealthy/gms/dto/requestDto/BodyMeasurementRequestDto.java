@@ -12,6 +12,6 @@ public class BodyMeasurementRequestDto {
 
     private BigDecimal height;
     private BigDecimal weight;
-    private Integer userId;
+    private Long userId;
 
 }

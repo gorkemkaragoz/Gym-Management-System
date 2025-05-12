@@ -10,6 +10,6 @@ import lombok.*;
 public class AnswerRequestDto {
 
     private String response;
-    private Integer questionId;
-    private Integer responderId;
+    private Long questionId;
+    private Long responderId;
 }

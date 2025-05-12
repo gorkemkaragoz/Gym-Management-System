@@ -14,6 +14,6 @@ public class TrainerCertificateRequestDto {
     private String certificateName;
     private String issuedBy;
     private LocalDate issuedDate;
-    private Integer userId;
+    private Long userId;
 
 }

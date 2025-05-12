@@ -12,7 +12,7 @@ import java.util.List;
 @Builder
 public class MenuItemResponseDto {
 
-    private Integer id;
+    private Long id;
     private String name;
     private BigDecimal price;
     private String typeName;

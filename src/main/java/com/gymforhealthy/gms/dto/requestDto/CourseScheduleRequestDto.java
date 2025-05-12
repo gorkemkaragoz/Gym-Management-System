@@ -15,7 +15,7 @@ public class CourseScheduleRequestDto {
     private LocalDate courseDate;
     private LocalTime startTime;
     private LocalTime endTime;
-    private Integer courseId;
-    private Integer trainerId;
+    private Long courseId;
+    private Long trainerId;
 
 }

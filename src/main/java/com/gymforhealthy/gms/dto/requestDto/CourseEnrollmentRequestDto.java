@@ -8,8 +8,6 @@ import lombok.*;
 @AllArgsConstructor
 @Builder
 public class CourseEnrollmentRequestDto {
-
-    private Integer userId;
-    private Integer courseId;
-
+    private Long userId;
+    private Long courseId;
 }

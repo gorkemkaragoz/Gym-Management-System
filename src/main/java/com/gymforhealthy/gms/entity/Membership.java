@@ -17,7 +17,7 @@ public class Membership {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     @Column(name = "remaining_hours")
     @PositiveOrZero

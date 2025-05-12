@@ -13,10 +13,10 @@ import java.time.LocalDate;
 @Builder
 public class TrainerCertificateResponseDto {
 
-    private Integer id;
+    private Long id;
     private String certificateName;
     private String issuedBy;
     private LocalDate issuedDate;
-    private Integer userId;
+    private Long userId;
 
 }

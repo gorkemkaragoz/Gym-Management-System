@@ -9,8 +9,8 @@ import lombok.*;
 @Builder
 public class CourseResponseDto {
 
-    private Integer id;
+    private Long id;
     private String name;
     private Integer maxCapacity;
-    private Integer trainerId;
+    private Long trainerId;
 }

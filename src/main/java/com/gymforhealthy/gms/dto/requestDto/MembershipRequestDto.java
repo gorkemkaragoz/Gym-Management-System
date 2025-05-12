@@ -13,7 +13,7 @@ public class MembershipRequestDto {
 
     private LocalDate startDate;
     private LocalDate endDate;
-    private Integer userId;
-    private Integer packageId;
+    private Long userId;
+    private Long packageId;
 
 }

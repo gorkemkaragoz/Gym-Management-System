@@ -9,7 +9,7 @@ import lombok.*;
 @Builder
 public class MembershipPackageResponseDto {
 
-    private Integer id;
+    private Long id;
     private String name;
     private Integer packageTotalHour;
     private Boolean isUnlimited;

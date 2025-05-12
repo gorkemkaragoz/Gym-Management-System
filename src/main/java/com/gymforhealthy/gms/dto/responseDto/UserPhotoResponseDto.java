@@ -11,9 +11,9 @@ import java.time.LocalDateTime;
 @Builder
 public class UserPhotoResponseDto {
 
-    private Integer id;
+    private Long id;
     private byte[] photo;
     private LocalDateTime uploadedAt;
-    private Integer userId;
+    private Long userId;
 
 }

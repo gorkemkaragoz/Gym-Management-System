@@ -16,6 +16,6 @@ public class UserRequestDto {
     private String lastName;
     private String gender;
     private String tcNo;
-    private Integer roleId;
+    private Long roleId;
 
 }

@@ -12,11 +12,11 @@ import java.time.LocalTime;
 @Builder
 public class CourseScheduleResponseDto {
 
-    private Integer id;
+    private Long id;
     private LocalDate courseDate;
     private LocalTime startTime;
     private LocalTime endTime;
-    private Integer courseId;
-    private Integer trainerId;
+    private Long courseId;
+    private Long trainerId;
 
 }

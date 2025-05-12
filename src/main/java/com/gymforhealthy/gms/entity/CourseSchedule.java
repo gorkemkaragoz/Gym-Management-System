@@ -16,7 +16,7 @@ public class CourseSchedule {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     @Column(name = "course_date", nullable = false)
     private LocalDate courseDate;

@@ -15,7 +15,7 @@ public class UserPhoto {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     @Lob
     @Column(name = "photo")

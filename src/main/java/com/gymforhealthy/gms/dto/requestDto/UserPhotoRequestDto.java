@@ -9,5 +9,5 @@ import lombok.*;
 @Builder
 public class UserPhotoRequestDto {
     private byte[] photo;
-    private Integer userId;
+    private Long userId;
 }

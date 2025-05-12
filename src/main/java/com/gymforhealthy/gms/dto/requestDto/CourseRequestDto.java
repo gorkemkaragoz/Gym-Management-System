@@ -11,5 +11,5 @@ public class CourseRequestDto {
 
     private String name;
     private Integer maxCapacity;
-    private Integer trainerId;
+    private Long trainerId;
 }

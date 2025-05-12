@@ -6,10 +6,10 @@
     import java.util.List;
 
     public interface UserService {
-        UserResponseDto save(UserRequestDto userRequestDto);
-        UserResponseDto update(Integer id, UserRequestDto userRequestDto);
-        void delete(Integer id);
-        UserResponseDto findById(Integer id);
-        List<UserResponseDto> findAll();
+        UserResponseDto saveUser(UserRequestDto userRequestDto);
+        UserResponseDto updateUser(Long id, UserRequestDto userRequestDto);
+        List<UserResponseDto> findAllUsers();
+        UserResponseDto findUserById(Long id);
         UserResponseDto findByTcNo(String tcNo);
+        void deleteUser(Long id);
     }

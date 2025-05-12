@@ -3,11 +3,11 @@ package com.gymforhealthy.gms.service;
 import com.gymforhealthy.gms.dto.requestDto.UserPhotoRequestDto;
 import com.gymforhealthy.gms.dto.responseDto.UserPhotoResponseDto;
 
-import java.util.List;
-
 public interface UserPhotoService {
-    UserPhotoResponseDto upload(UserPhotoRequestDto userPhotoRequestDto);
-    void delete(Integer photoId);
-    UserPhotoResponseDto findById(Integer photoId);
-    List<UserPhotoResponseDto> findByUserId(Integer userId);
+
+    UserPhotoResponseDto saveUserPhoto(UserPhotoRequestDto userPhotoRequestDto);
+    UserPhotoResponseDto updateUserPhoto(Long id,UserPhotoRequestDto userPhotoRequestDto);
+    UserPhotoResponseDto findUserPhotoById(Long id);
+    void deleteUserPhoto(Long id);
+
 }
