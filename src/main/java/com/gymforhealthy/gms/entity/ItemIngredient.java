@@ -23,4 +23,5 @@ public class ItemIngredient {
     @JoinColumn(name = "item_id", nullable = false)
     @JsonBackReference
     private MenuItem item;
+
 }

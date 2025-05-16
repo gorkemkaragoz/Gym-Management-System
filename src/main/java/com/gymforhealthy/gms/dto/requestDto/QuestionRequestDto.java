@@ -12,5 +12,6 @@ public class QuestionRequestDto {
     private String content;
     private String subjectType; // SUGGESTION, COMPLAINT, QUESTION
     private Long senderId;
+    private Long recipientId;
 
 }

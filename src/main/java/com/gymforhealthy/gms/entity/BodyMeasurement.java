@@ -5,6 +5,7 @@ import lombok.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.validation.constraints.Positive;
 
@@ -33,6 +34,7 @@ public class BodyMeasurement {
     private BigDecimal bmi;
 
     @Column(name = "created_date")
+    @CreationTimestamp
     private LocalDateTime createdTime;
 
     @ManyToOne

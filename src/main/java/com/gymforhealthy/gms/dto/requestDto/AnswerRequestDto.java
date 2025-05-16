@@ -8,7 +8,6 @@ import lombok.*;
 @AllArgsConstructor
 @Builder
 public class AnswerRequestDto {
-
     private String response;
     private Long questionId;
     private Long responderId;

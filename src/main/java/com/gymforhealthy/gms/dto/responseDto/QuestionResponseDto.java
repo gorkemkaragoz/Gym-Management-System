@@ -13,7 +13,8 @@ public class QuestionResponseDto {
     private Long id;
     private String content;
     private LocalDateTime createdAt;
-    private String subjectType; // Enum → string olarak tutulur
-    private String status;      // OPEN, IN_PROGRESS, RESOLVED
+    private String subjectType;
+    private String status;
     private Long senderId;
+    private Long recipientId;
 }

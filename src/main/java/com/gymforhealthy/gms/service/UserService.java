@@ -11,5 +11,6 @@
         List<UserResponseDto> findAllUsers();
         UserResponseDto findUserById(Long id);
         UserResponseDto findByTcNo(String tcNo);
+        UserResponseDto findByEmail(String email);
         void deleteUser(Long id);
     }

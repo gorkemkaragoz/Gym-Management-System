@@ -11,6 +11,6 @@ public interface CourseEnrollmentService {
     CourseEnrollmentResponseDto updateCourseEnrollment(Long id, CourseEnrollmentRequestDto courseEnrollmentRequestDto);
     List<CourseEnrollmentResponseDto> findAllCourseEnrollment();
     CourseEnrollmentResponseDto findCourseEnrollmentById (Long id);
-    void delete(Long id);
+    void deleteCourseEnrollment(Long id);
 
 }

@@ -10,5 +10,5 @@ public interface CourseScheduleService {
     CourseScheduleResponseDto updateCourseSchedule(Long id, CourseScheduleRequestDto courseScheduleRequestDto);
     List<CourseScheduleResponseDto> findAllCourseSchedule();
     CourseScheduleResponseDto findCourseScheduleById(Long id);
-    void delete(Long id);
+    void deleteCourseSchedule(Long id);
 }
