@@ -9,6 +9,8 @@ import com.gymforhealthy.gms.repository.*;
 import com.gymforhealthy.gms.service.UserService;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,6 +21,7 @@ import java.util.stream.Collectors;
 public class UserServiceImpl implements UserService {
 
     private final ModelMapper modelMapper;
+    private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
 
@@ -32,6 +35,7 @@ public class UserServiceImpl implements UserService {
                 .orElseThrow(() -> new ResourceNotFoundException("Role not found with id: " + userRequestDto.getRoleId()));
 
         user.setRole(role);
+        user.setPassword(passwordEncoder.encode(userRequestDto.getPassword()));
         user.setAccountLocked(false);
 
         user = userRepository.save(user);
@@ -49,6 +53,7 @@ public class UserServiceImpl implements UserService {
                 .orElseThrow(() -> new ResourceNotFoundException("Role not found with id: " + userRequestDto.getRoleId()));
 
         user.setRole(role);
+        user.setPassword(passwordEncoder.encode(userRequestDto.getPassword()));
         user = userRepository.save(user);
 
         return convertToResponseDto(user);
@@ -79,10 +84,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserResponseDto findByEmail(String email) {
-        User user = userRepository.findByEmail(email);
-        if (user == null) {
-            throw new ResourceNotFoundException("User not found with email: " + email);
-        }
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
         return convertToResponseDto(user);
     }
 

@@ -36,7 +36,7 @@ public class CourseServiceImpl implements CourseService {
                 .orElseThrow(() -> new ResourceNotFoundException("Trainer not found with id" + courseRequestDto.getTrainerId()));
 
         if (!trainer.getRole().getName().equalsIgnoreCase("TRAINER")) {
-            throw new IllegalArgumentException("Only users with TRAINER role can have course.");
+            throw new IllegalArgumentException("Only users with the TRAINER role can add courses.");
         }
 
         course.setTrainer(trainer);
@@ -68,7 +68,7 @@ public class CourseServiceImpl implements CourseService {
                 .orElseThrow(() -> new ResourceNotFoundException("Trainer not found with id" + courseRequestDto.getTrainerId()));
 
         if (!trainer.getRole().getName().equalsIgnoreCase("TRAINER")) {
-            throw new IllegalArgumentException("Only users with TRAINER role can have course.");
+            throw new IllegalArgumentException("Only users with the TRAINER role can add courses.");
         }
 
         course.setTrainer(trainer);

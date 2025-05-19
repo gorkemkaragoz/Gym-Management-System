@@ -6,13 +6,22 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import java.util.List;
 
+@NoArgsConstructor
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
 @Entity
 @Table(name = "users")
 public class User {
+
+    public User(String email, String password, String firstName, String lastName, String tcNo, Role role) {
+        this.email = email;
+        this.password = password;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.tcNo = tcNo;
+        this.role = role;
+        this.accountLocked = false;
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
