@@ -5,6 +5,7 @@ import com.gymforhealthy.gms.service.MenuItemService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -20,5 +21,10 @@ public class MenuItemController {
     @GetMapping
     public ResponseEntity<List<MenuItemResponseDto>> findAllMenuItem() {
         return ResponseEntity.ok(menuItemService.findAllMenuItem());
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<MenuItemResponseDto> getMenuItemId(@PathVariable Long id){
+        return ResponseEntity.ok(menuItemService.findMenuItemById(id));
     }
 }

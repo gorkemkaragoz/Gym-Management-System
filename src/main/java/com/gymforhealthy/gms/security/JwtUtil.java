@@ -1,37 +1,51 @@
 package com.gymforhealthy.gms.security;
 
+import io.jsonwebtoken.security.Keys;
+import java.security.Key;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.security.Keys;
+import jakarta.annotation.PostConstruct;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
-import java.security.Key;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 @Component
 public class JwtUtil {
 
-    private static final String SECRET_KEY = "my-super-secret-key-that-is-at-least-32-characters!"; // En az 32 karakter
+    @Value("${jwt.secret}")
+    private String jwtSecret;
 
-    private Key getSigningKey() {
-        return Keys.hmacShaKeyFor(SECRET_KEY.getBytes());
+    private Key key;
+
+    @PostConstruct
+    public void initKey() {
+        this.key = Keys.hmacShaKeyFor(jwtSecret.getBytes());
     }
 
     public String generateToken(UserDetails userDetails) {
+        Map<String, Object> claims = new HashMap<>();
+        String role = userDetails.getAuthorities().iterator().next().getAuthority();
+        claims.put("role", role);
+        return createToken(claims, userDetails.getUsername());
+    }
+
+    private String createToken(Map<String, Object> claims, String subject) {
         return Jwts.builder()
-                .setSubject(userDetails.getUsername())
-                .claim("role", userDetails.getAuthorities().stream().findFirst().get().getAuthority())
-                .setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis() + 86400000)) // 1 gün
-                .signWith(getSigningKey(), SignatureAlgorithm.HS256) // ✔️ modern yöntem
+                .setClaims(claims)
+                .setSubject(subject)
+                .setIssuedAt(new Date(System.currentTimeMillis()))
+                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 10))
+                .signWith(key, SignatureAlgorithm.HS256)
                 .compact();
     }
 
     public String extractUsername(String token) {
-        return Jwts.parserBuilder()
-                .setSigningKey(getSigningKey())
-                .build()
+        return Jwts.parser()
+                .setSigningKey(key)
                 .parseClaimsJws(token)
                 .getBody()
                 .getSubject();

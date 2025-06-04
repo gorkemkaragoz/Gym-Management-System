@@ -5,6 +5,7 @@ import com.gymforhealthy.gms.dto.responseDto.UserResponseDto;
 import com.gymforhealthy.gms.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -34,6 +35,15 @@ public class UserController {
     @GetMapping("/{id}")
     public ResponseEntity<UserResponseDto> getUserById(@PathVariable Long id) {
         return ResponseEntity.ok(userService.findUserById(id));
+    }
+
+    @GetMapping("/me")
+    public ResponseEntity<UserResponseDto> getCurrentUser(Authentication authentication) {
+        // authentication.getName() genellikle "username" veya "email" döner.
+        // Sizin uygulamanızda login token içinde email varsa, bu email değeri burada gelir.
+        String email = authentication.getName();
+        UserResponseDto currentUserDto = userService.findByEmail(email);
+        return ResponseEntity.ok(currentUserDto);
     }
 
     @GetMapping("/tcno/{tcNo}")
