@@ -1,10 +1,14 @@
 package com.gymforhealthy.gms.controller;
 
+import com.gymforhealthy.gms.dto.requestDto.ChangePasswordRequestDto;
+import com.gymforhealthy.gms.dto.requestDto.UserManagementRequestDto;
 import com.gymforhealthy.gms.dto.requestDto.UserRequestDto;
+import com.gymforhealthy.gms.dto.responseDto.UserManagementResponseDto;
 import com.gymforhealthy.gms.dto.responseDto.UserResponseDto;
 import com.gymforhealthy.gms.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,6 +26,21 @@ public class UserController {
         return ResponseEntity.ok(userService.saveUser(userRequestDto));
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
+    @PostMapping("/management")
+    public ResponseEntity<String> createUserByAdmin(@RequestBody UserManagementRequestDto requestDto) {
+        userService.createUserByAdmin(requestDto);
+        return ResponseEntity.ok("User created successfully");
+    }
+
+    @PatchMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<UserManagementResponseDto> updatePartialUser(
+            @PathVariable Long id,
+            @RequestBody UserManagementRequestDto requestDto) {
+        return ResponseEntity.ok(userService.updatePartialUser(id, requestDto));
+    }
+
     @PutMapping("/{id}")
     public ResponseEntity<UserResponseDto> updateUser(@PathVariable Long id, @RequestBody UserRequestDto userRequestDto) {
         return ResponseEntity.ok(userService.updateUser(id, userRequestDto));
@@ -30,6 +49,12 @@ public class UserController {
     @GetMapping
     public ResponseEntity<List<UserResponseDto>> getAllUsers() {
         return ResponseEntity.ok(userService.findAllUsers());
+    }
+
+    @GetMapping("/trainers")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<List<UserResponseDto>> getAllTrainers() {
+        return ResponseEntity.ok(userService.findAllByRoleName("TRAINER"));
     }
 
     @GetMapping("/{id}")
@@ -54,6 +79,20 @@ public class UserController {
     @GetMapping("/email/{email}")
     public ResponseEntity<UserResponseDto> getUserByEmail(@PathVariable String email) {
         return ResponseEntity.ok(userService.findByEmail(email));
+    }
+
+    @GetMapping("/management")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<List<UserManagementResponseDto>> getAllMembersAndTrainers() {
+        return ResponseEntity.ok(userService.getAllMembersAndTrainers());
+    }
+
+    @PatchMapping("/change-password")
+    @PreAuthorize("isAuthenticated()")
+    public ResponseEntity<Void> changePassword(@RequestBody ChangePasswordRequestDto request, Authentication authentication) {
+        String email = authentication.getName();
+        userService.changePassword(email, request.getCurrentPassword(), request.getNewPassword());
+        return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("/{id}")

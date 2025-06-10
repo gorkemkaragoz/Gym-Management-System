@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.*;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @NoArgsConstructor
@@ -91,6 +93,6 @@ public class User {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     @JsonManagedReference
-    private List<Membership> memberships;
+    private List<Membership> memberships ;
 
 }

@@ -35,7 +35,7 @@ public class GymManagementSystemApplication {
 			}
 
 			// Kullanıcı yoksa ekle
-			if (userRepository.count() == 0) {
+			if (userRepository.count() <= 3) {
 				Role adminRole = roleRepository.findByName("ADMIN").orElseThrow();
 				Role trainerRole = roleRepository.findByName("TRAINER").orElseThrow();
 				Role memberRole = roleRepository.findByName("MEMBER").orElseThrow();
@@ -43,7 +43,8 @@ public class GymManagementSystemApplication {
 				userRepository.saveAll(List.of(
 						new User("admin@example.com", passwordEncoder.encode("123456"), "Admin", "Admin", "11111111111", adminRole),
 						new User("trainer@example.com", passwordEncoder.encode("123456"), "Trainer", "Trainer", "22222222222", trainerRole),
-						new User("member@example.com", passwordEncoder.encode("123456"), "Member", "Member", "33333333333", memberRole)
+						new User("member@example.com", passwordEncoder.encode("123456"), "Member", "Member", "33333333333", memberRole),
+						new User("gymapp.managementproject@gmail.com", passwordEncoder.encode("123456"), "Mail", "Test", "88888888888", memberRole)
 				));
 			}
 		};

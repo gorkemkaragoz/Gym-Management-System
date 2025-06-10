@@ -1,6 +1,7 @@
 package com.gymforhealthy.gms.service;
 
 import com.gymforhealthy.gms.dto.requestDto.CourseScheduleRequestDto;
+import com.gymforhealthy.gms.dto.responseDto.CourseScheduleOverviewResponseDto;
 import com.gymforhealthy.gms.dto.responseDto.CourseScheduleResponseDto;
 
 import java.util.List;
@@ -11,4 +12,5 @@ public interface CourseScheduleService {
     List<CourseScheduleResponseDto> findAllCourseSchedule();
     CourseScheduleResponseDto findCourseScheduleById(Long id);
     void deleteCourseSchedule(Long id);
+    List<CourseScheduleOverviewResponseDto> findAllSchedulesOverview();
 }

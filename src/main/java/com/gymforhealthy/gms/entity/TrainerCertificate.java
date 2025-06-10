@@ -3,6 +3,8 @@ package com.gymforhealthy.gms.entity;
 import jakarta.persistence.*;
 import lombok.*;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+
+import java.sql.ConnectionBuilder;
 import java.time.LocalDate;
 
 @Getter
@@ -10,6 +12,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@Builder
 @Table(name = "trainer_certificates")
 public class TrainerCertificate {
 

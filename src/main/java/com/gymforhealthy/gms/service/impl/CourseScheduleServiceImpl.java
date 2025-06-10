@@ -1,6 +1,7 @@
 package com.gymforhealthy.gms.service.impl;
 
 import com.gymforhealthy.gms.dto.requestDto.CourseScheduleRequestDto;
+import com.gymforhealthy.gms.dto.responseDto.CourseScheduleOverviewResponseDto;
 import com.gymforhealthy.gms.dto.responseDto.CourseScheduleResponseDto;
 import com.gymforhealthy.gms.entity.Course;
 import com.gymforhealthy.gms.entity.CourseSchedule;
@@ -146,6 +147,23 @@ public class CourseScheduleServiceImpl implements CourseScheduleService {
         return courseScheduleRepository.findAll().stream()
                 .map(this::convertToCourseScheduleResponseDto)
                 .toList();
+    }
+
+    @Override
+    public List<CourseScheduleOverviewResponseDto> findAllSchedulesOverview() {
+        return courseScheduleRepository.findAll().stream()
+                .map(sched -> CourseScheduleOverviewResponseDto.builder()
+                        .scheduleId(sched.getId())
+                        .courseName(sched.getCourse().getName())
+                        .maxCapacity(sched.getCourse().getMaxCapacity())
+                        .trainerId(sched.getTrainer().getId()) // ✅ Burası eksikti!
+                        .trainerName(sched.getTrainer().getFirstName()
+                                + " " + sched.getTrainer().getLastName())
+                        .courseDate(sched.getCourseDate())
+                        .startTime(sched.getStartTime())
+                        .endTime(sched.getEndTime())
+                        .build()
+                ).toList();
     }
 
     @Override

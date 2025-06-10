@@ -1,6 +1,7 @@
 package com.gymforhealthy.gms.controller;
 
 import com.gymforhealthy.gms.dto.requestDto.CourseScheduleRequestDto;
+import com.gymforhealthy.gms.dto.responseDto.CourseScheduleOverviewResponseDto;
 import com.gymforhealthy.gms.dto.responseDto.CourseScheduleResponseDto;
 import com.gymforhealthy.gms.service.CourseScheduleService;
 import lombok.RequiredArgsConstructor;
@@ -10,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/course-schedules")
+@RequestMapping("/api/v1/course-schedules")
 @RequiredArgsConstructor
 public class CourseScheduleController {
 
@@ -34,6 +35,12 @@ public class CourseScheduleController {
     @GetMapping
     public ResponseEntity<List<CourseScheduleResponseDto>> getAllCourseSchedules() {
         return ResponseEntity.ok(courseScheduleService.findAllCourseSchedule());
+    }
+
+    @GetMapping("/overview")
+    public ResponseEntity<List<CourseScheduleOverviewResponseDto>> getSchedulesOverview() {
+        List<CourseScheduleOverviewResponseDto> list = courseScheduleService.findAllSchedulesOverview();
+        return ResponseEntity.ok(list);
     }
 
     @GetMapping("/{id}")
