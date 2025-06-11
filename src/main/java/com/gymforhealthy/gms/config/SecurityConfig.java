@@ -36,7 +36,9 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
                         // Public endpointler
+                        .requestMatchers("/api/v1/photos/upload").permitAll()
                         .requestMatchers("/api/v1/auth/**").permitAll()
+
 
                         // Role-based erişim
                         .requestMatchers(HttpMethod.GET, "/api/v1/**").hasAnyAuthority("ADMIN", "TRAINER", "MEMBER")
