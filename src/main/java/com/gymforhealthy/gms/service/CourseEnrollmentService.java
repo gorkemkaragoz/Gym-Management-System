@@ -8,9 +8,12 @@ import java.util.List;
 public interface CourseEnrollmentService {
 
     CourseEnrollmentResponseDto saveCourseEnrollment(CourseEnrollmentRequestDto courseEnrollmentRequestDto);
-    CourseEnrollmentResponseDto updateCourseEnrollment(Long id, CourseEnrollmentRequestDto courseEnrollmentRequestDto);
-    List<CourseEnrollmentResponseDto> findAllCourseEnrollment();
-    CourseEnrollmentResponseDto findCourseEnrollmentById (Long id);
-    void deleteCourseEnrollment(Long id);
 
+    // Admin tarafından kurs kayıt silme (Enroll ID ile)
+    void deleteCourseEnrollment(Long enrollmentId); // ❗ burada `enrollmentId` olmalı
+
+    // Üye kendi kaydını iptal eder
+    void cancelEnrollment(Long scheduleId);
+
+    List<CourseEnrollmentResponseDto> getMyEnrollments();
 }

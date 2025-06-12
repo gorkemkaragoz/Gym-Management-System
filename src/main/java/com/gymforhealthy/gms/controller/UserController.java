@@ -97,7 +97,7 @@ public class UserController {
     }
 
 
-        @PatchMapping("/change-password")
+    @PatchMapping("/change-password")
     @PreAuthorize("isAuthenticated()")
     public ResponseEntity<Void> changePassword(@RequestBody ChangePasswordRequestDto request, Authentication authentication) {
         String email = authentication.getName();

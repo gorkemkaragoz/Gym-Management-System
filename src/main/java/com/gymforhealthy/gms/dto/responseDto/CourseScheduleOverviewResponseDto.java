@@ -16,6 +16,7 @@ public class CourseScheduleOverviewResponseDto {
     // Kurs bilgileri
     private String courseName;
     private Integer maxCapacity;
+    private int currentStudentCount;
 
     // Eğitmen bilgisi
     private Long trainerId;

@@ -36,18 +36,23 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
                         // Public endpointler
-                        .requestMatchers("/api/v1/photos/upload").permitAll()
                         .requestMatchers("/api/v1/auth/**").permitAll()
+                        .requestMatchers("/api/v1/photos/upload").permitAll()
 
+                        // Member ders kaydı (join/cancel)
+                        .requestMatchers("/api/v1/course-enrollments/enroll").hasAuthority("MEMBER")
+                        .requestMatchers("/api/v1/course-enrollments/cancel/**").hasAuthority("MEMBER")
 
-                        // Role-based erişim
+                        // Şifre değiştirme → tüm roller kullanabilsin
+                        .requestMatchers(HttpMethod.PATCH, "/api/v1/users/change-password").authenticated()
+
+                        // Role-based diğer endpointler
                         .requestMatchers(HttpMethod.GET, "/api/v1/**").hasAnyAuthority("ADMIN", "TRAINER", "MEMBER")
                         .requestMatchers(HttpMethod.POST, "/api/v1/**").hasAnyAuthority("ADMIN", "TRAINER")
                         .requestMatchers(HttpMethod.PUT, "/api/v1/**").hasAuthority("ADMIN")
-                        .requestMatchers(HttpMethod.PATCH, "/api/v1/**").hasAuthority("ADMIN") // 🔥 BU EKLENECEK
+                        .requestMatchers(HttpMethod.PATCH, "/api/v1/**").hasAuthority("ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/api/v1/**").hasAuthority("ADMIN")
 
-                        // Diğer tüm endpointler login zorunlu
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

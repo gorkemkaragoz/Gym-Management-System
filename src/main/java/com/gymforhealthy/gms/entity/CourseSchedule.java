@@ -5,6 +5,8 @@ import lombok.*;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -26,6 +28,9 @@ public class CourseSchedule {
 
     @Column(name = "end_time", nullable = false)
     private LocalTime endTime;
+
+    @OneToMany(mappedBy = "courseSchedule", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<CourseEnrollment> enrollments = new ArrayList<>();
 
     @ManyToOne
     @JoinColumn(name = "course_id", nullable = false)

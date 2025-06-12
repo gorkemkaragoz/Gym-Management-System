@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 @Entity
 @Table(
         name = "course_enrollments",
-        uniqueConstraints = @UniqueConstraint(columnNames = {"user_id", "course_id"})
+        uniqueConstraints = @UniqueConstraint(columnNames = {"user_id", "course_schedule_id"})
 )
 public class CourseEnrollment {
 
@@ -25,8 +25,12 @@ public class CourseEnrollment {
     private User user;
 
     @ManyToOne
-    @JoinColumn(name = "course_id", nullable = false)
+    @JoinColumn(name = "course_schedule_id", nullable = false)
     @JsonBackReference
+    private CourseSchedule courseSchedule;
+
+    @ManyToOne
+    @JoinColumn(name = "course_id")
     private Course course;
 
     @Enumerated(EnumType.STRING)

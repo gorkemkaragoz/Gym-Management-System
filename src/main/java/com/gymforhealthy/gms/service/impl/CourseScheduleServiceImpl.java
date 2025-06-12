@@ -157,6 +157,7 @@ public class CourseScheduleServiceImpl implements CourseScheduleService {
                         .courseName(sched.getCourse().getName())
                         .maxCapacity(sched.getCourse().getMaxCapacity())
                         .trainerId(sched.getTrainer().getId()) // ✅ Burası eksikti!
+                        .currentStudentCount(sched.getEnrollments().size())
                         .trainerName(sched.getTrainer().getFirstName()
                                 + " " + sched.getTrainer().getLastName())
                         .courseDate(sched.getCourseDate())
