@@ -46,7 +46,6 @@ public class CourseScheduleController {
         return ResponseEntity.ok(courseScheduleService.getScheduleForTrainer(email));
     }
 
-
     @GetMapping("/overview")
     public ResponseEntity<List<CourseScheduleOverviewResponseDto>> getSchedulesOverview() {
         List<CourseScheduleOverviewResponseDto> list = courseScheduleService.findAllSchedulesOverview();
