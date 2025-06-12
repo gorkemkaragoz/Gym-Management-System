@@ -14,6 +14,7 @@
         UserResponseDto findUserById(Long id);
         UserResponseDto findByTcNo(String tcNo);
         UserResponseDto findByEmail(String email);
+        UserManagementResponseDto findByEmaill(String email);
         void deleteUser(Long id);
         void changePassword(String email, String currentPassword, String newPassword);
         List<UserManagementResponseDto> getAllMembersAndTrainers();

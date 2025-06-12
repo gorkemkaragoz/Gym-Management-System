@@ -87,7 +87,17 @@ public class UserController {
         return ResponseEntity.ok(userService.getAllMembersAndTrainers());
     }
 
-    @PatchMapping("/change-password")
+    @GetMapping("/management/me")
+    public ResponseEntity<UserManagementResponseDto> getCurrentUserDetailed(Authentication authentication) {
+        // authentication.getName() genellikle "username" veya "email" döner.
+        // Sizin uygulamanızda login token içinde email varsa, bu email değeri burada gelir.
+        String email = authentication.getName();
+        UserManagementResponseDto response = userService.findByEmaill(email);
+        return ResponseEntity.ok(response);
+    }
+
+
+        @PatchMapping("/change-password")
     @PreAuthorize("isAuthenticated()")
     public ResponseEntity<Void> changePassword(@RequestBody ChangePasswordRequestDto request, Authentication authentication) {
         String email = authentication.getName();

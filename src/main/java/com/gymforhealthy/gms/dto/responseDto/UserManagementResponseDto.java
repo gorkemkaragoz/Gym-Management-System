@@ -15,6 +15,7 @@ public class UserManagementResponseDto {
     private String lastName;
     private String email;
     private String gender;
+    private String tcNo;
     private String roleName;
 
     // Membership bilgileri (sadece member ise dolu olur)

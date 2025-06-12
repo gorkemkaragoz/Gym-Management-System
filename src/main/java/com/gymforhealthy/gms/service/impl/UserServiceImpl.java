@@ -216,6 +216,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public UserManagementResponseDto findByEmaill(String email) {
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+        return convertToManagementDto(user);
+    }
+
+    @Override
     public void deleteUser(Long id) {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + id));
@@ -249,6 +256,7 @@ public class UserServiceImpl implements UserService {
                             .lastName(user.getLastName())
                             .email(user.getEmail())
                             .gender(user.getGender())
+                            .tcNo(user.getTcNo())
                             .roleName(user.getRole().getName());
 
                     if (user.getRole().getName().equalsIgnoreCase("Trainer")
@@ -285,6 +293,7 @@ public class UserServiceImpl implements UserService {
                 .lastName(user.getLastName())
                 .email(user.getEmail())
                 .gender(user.getGender())
+                .tcNo(user.getTcNo())
                 .roleName(user.getRole().getName());
 
         if (user.getRole().getName().equalsIgnoreCase("Trainer")
