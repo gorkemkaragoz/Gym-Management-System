@@ -163,10 +163,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<UserResponseDto> findAllByRoleName(String roleName) {
+    public List<UserManagementResponseDto> findAllByRoleName(String roleName) {
         return userRepository.findAll().stream()
                 .filter(user -> user.getRole().getName().equalsIgnoreCase(roleName))
-                .map(this::convertToResponseDto)
+                .map(this::convertToManagementDto)
                 .toList();
     }
 

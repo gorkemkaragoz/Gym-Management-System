@@ -53,7 +53,7 @@ public class UserController {
 
     @GetMapping("/trainers")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<List<UserResponseDto>> getAllTrainers() {
+    public ResponseEntity<List<UserManagementResponseDto>> getAllTrainers() {
         return ResponseEntity.ok(userService.findAllByRoleName("TRAINER"));
     }
 

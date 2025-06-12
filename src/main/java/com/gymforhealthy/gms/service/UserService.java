@@ -19,7 +19,7 @@
         void changePassword(String email, String currentPassword, String newPassword);
         List<UserManagementResponseDto> getAllMembersAndTrainers();
         UserResponseDto createUserByAdmin(UserManagementRequestDto requestDto);
-        List<UserResponseDto> findAllByRoleName(String roleName);
+        List<UserManagementResponseDto> findAllByRoleName(String roleName);
         UserManagementResponseDto updatePartialUser(Long id, UserManagementRequestDto requestDto);
 
     }
