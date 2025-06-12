@@ -18,7 +18,7 @@ public class CourseScheduleOverviewResponseDto {
     private Integer maxCapacity;
 
     // Eğitmen bilgisi
-    private Long trainerId;           // ✅ EKLE BUNU!
+    private Long trainerId;
     private String trainerName;
 
     // Program bilgisi

@@ -6,6 +6,8 @@ import com.gymforhealthy.gms.dto.responseDto.CourseScheduleResponseDto;
 import com.gymforhealthy.gms.service.CourseScheduleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -36,6 +38,14 @@ public class CourseScheduleController {
     public ResponseEntity<List<CourseScheduleResponseDto>> getAllCourseSchedules() {
         return ResponseEntity.ok(courseScheduleService.findAllCourseSchedule());
     }
+
+    @GetMapping("/me")
+    @PreAuthorize("hasRole('TRAINER')")
+    public ResponseEntity<List<CourseScheduleOverviewResponseDto>> getMyLessons(Authentication authentication) {
+        String email = authentication.getName();
+        return ResponseEntity.ok(courseScheduleService.getScheduleForTrainer(email));
+    }
+
 
     @GetMapping("/overview")
     public ResponseEntity<List<CourseScheduleOverviewResponseDto>> getSchedulesOverview() {

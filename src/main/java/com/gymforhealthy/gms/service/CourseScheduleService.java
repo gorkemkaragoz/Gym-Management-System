@@ -13,4 +13,5 @@ public interface CourseScheduleService {
     CourseScheduleResponseDto findCourseScheduleById(Long id);
     void deleteCourseSchedule(Long id);
     List<CourseScheduleOverviewResponseDto> findAllSchedulesOverview();
+    List<CourseScheduleOverviewResponseDto> getScheduleForTrainer(String email);
 }

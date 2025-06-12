@@ -4,10 +4,13 @@ import com.gymforhealthy.gms.dto.requestDto.CourseRequestDto;
 import com.gymforhealthy.gms.dto.requestDto.CourseScheduleRequestDto;
 import com.gymforhealthy.gms.dto.requestDto.CourseWithScheduleRequestDto;
 import com.gymforhealthy.gms.dto.responseDto.CourseResponseDto;
+import com.gymforhealthy.gms.dto.responseDto.CourseScheduleOverviewResponseDto;
 import com.gymforhealthy.gms.service.CourseScheduleService;
 import com.gymforhealthy.gms.service.CourseService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
