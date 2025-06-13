@@ -14,4 +14,5 @@ public interface CourseScheduleRepository extends JpaRepository<CourseSchedule, 
 
     List<CourseSchedule> findByCourseDateAndTrainerId(LocalDate courseDate, Long trainerId);
     List<CourseSchedule> findByTrainer(User trainer);
+    List<CourseSchedule> findByTrainerId(Long id);
 }

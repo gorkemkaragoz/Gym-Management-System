@@ -39,15 +39,29 @@ public class CourseEnrollmentServiceImpl implements CourseEnrollmentService {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + userId));
 
+        // Kurs kapasite kontrolü
         long enrolledCount = courseEnrollmentRepository.countByCourseScheduleId(schedule.getId());
         if (enrolledCount >= schedule.getCourse().getMaxCapacity()) {
             throw new IllegalArgumentException("Course is already full.");
         }
 
+        // Aynı kursa zaten kayıtlı mı?
         if (courseEnrollmentRepository.existsByUserIdAndCourseScheduleId(userId, schedule.getId())) {
             throw new IllegalStateException("Already enrolled to this course.");
         }
 
+        // Tarih ve saat çakışması var mı? (Kendi başka dersiyle)
+        boolean hasTimeConflict = courseEnrollmentRepository.existsUserScheduleConflict(
+                userId,
+                schedule.getCourseDate(),
+                schedule.getStartTime(),
+                schedule.getEndTime()
+        );
+        if (hasTimeConflict) {
+            throw new IllegalStateException("You already have another course at that time.");
+        }
+
+        // Kayıt oluşturuluyor
         CourseEnrollment enrollment = new CourseEnrollment();
         enrollment.setUser(user);
         enrollment.setCourseSchedule(schedule);
@@ -57,6 +71,7 @@ public class CourseEnrollmentServiceImpl implements CourseEnrollmentService {
         CourseEnrollment saved = courseEnrollmentRepository.save(enrollment);
         return convertToCourseEnrollmentResponseDto(saved);
     }
+
 
     @Override
     public void deleteCourseEnrollment(Long enrollmentId) {

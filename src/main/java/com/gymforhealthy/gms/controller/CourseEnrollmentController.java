@@ -40,7 +40,7 @@ public class CourseEnrollmentController {
         log.info("Cancel enrollment called. scheduleId: {}", scheduleId);
         courseEnrollmentService.cancelEnrollment(scheduleId);
         log.info("Enrollment cancelled.");
-        return ResponseEntity.ok("Enrollment cancelled successfully");
+        return ResponseEntity.noContent().build();
     }
 
     // Eğer admin tarafında enrollment silme işlemi olacaksa (enrollmentId üzerinden):

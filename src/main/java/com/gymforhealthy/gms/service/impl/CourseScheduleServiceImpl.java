@@ -3,7 +3,9 @@ package com.gymforhealthy.gms.service.impl;
 import com.gymforhealthy.gms.dto.requestDto.CourseScheduleRequestDto;
 import com.gymforhealthy.gms.dto.responseDto.CourseScheduleOverviewResponseDto;
 import com.gymforhealthy.gms.dto.responseDto.CourseScheduleResponseDto;
+import com.gymforhealthy.gms.dto.responseDto.EnrolledStudentDto;
 import com.gymforhealthy.gms.entity.Course;
+import com.gymforhealthy.gms.entity.CourseEnrollment;
 import com.gymforhealthy.gms.entity.CourseSchedule;
 import com.gymforhealthy.gms.entity.User;
 import com.gymforhealthy.gms.exception.ResourceNotFoundException;
@@ -12,13 +14,20 @@ import com.gymforhealthy.gms.repository.CourseScheduleRepository;
 import com.gymforhealthy.gms.repository.UserRepository;
 import com.gymforhealthy.gms.service.CourseScheduleService;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.nio.file.AccessDeniedException;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 @AllArgsConstructor
 public class CourseScheduleServiceImpl implements CourseScheduleService {
@@ -189,6 +198,36 @@ public class CourseScheduleServiceImpl implements CourseScheduleService {
                         .endTime(sched.getEndTime())
                         .build())
                 .toList();
+    }
+
+    @Override
+    public List<EnrolledStudentDto> getAllStudentsForTrainer(String trainerEmail) {
+        User trainer = userRepository.findByEmail(trainerEmail)
+                .orElseThrow(() -> new ResourceNotFoundException("Trainer not found with email: " + trainerEmail));
+
+        // Tüm trainer’a ait course_schedules kayıtlarını bul
+        List<CourseSchedule> schedules = courseScheduleRepository.findByTrainerId(trainer.getId());
+
+        Set<Long> addedUserIds = new HashSet<>();
+        List<EnrolledStudentDto> students = new ArrayList<>();
+
+        for (CourseSchedule schedule : schedules) {
+            for (CourseEnrollment enrollment : schedule.getEnrollments()) {
+                User student = enrollment.getUser();
+                if (addedUserIds.add(student.getId())) {
+                    EnrolledStudentDto dto = new EnrolledStudentDto();
+                    dto.setUserId(student.getId());
+                    dto.setFirstName(student.getFirstName());
+                    dto.setLastName(student.getLastName());
+                    dto.setEmail(student.getEmail());
+                    dto.setBmi(null);    // BMI ve Weight ileride eklenir
+                    dto.setWeight(null);
+                    students.add(dto);
+                }
+            }
+        }
+
+        return students;
     }
 
 
