@@ -21,6 +21,7 @@ public class BodyMeasurementController {
         return ResponseEntity.ok(bodyMeasurementService.saveBodyMeasurement(bodyMeasurementRequestDto));
     }
 
+
     @PutMapping("/{id}")
     public ResponseEntity<BodyMeasurementResponseDto> update(@PathVariable Long id, @RequestBody BodyMeasurementRequestDto bodyMeasurementRequestDto) {
         return ResponseEntity.ok(bodyMeasurementService.updateBodyMeasurement(id, bodyMeasurementRequestDto));
@@ -29,6 +30,11 @@ public class BodyMeasurementController {
     @GetMapping
     public ResponseEntity<List<BodyMeasurementResponseDto>> getAll() {
         return ResponseEntity.ok(bodyMeasurementService.findAllBodyMeasurement());
+    }
+
+    @GetMapping("/last/{userId}")
+    public ResponseEntity<BodyMeasurementResponseDto> getLastMeasurementForUser(@PathVariable Long userId) {
+        return ResponseEntity.ok(bodyMeasurementService.findLastMeasurementByUserId(userId));
     }
 
     @GetMapping("/{id}")

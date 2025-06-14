@@ -76,6 +76,18 @@ public class BodyMeasurementServiceImpl implements BodyMeasurementService {
     }
 
     @Override
+    public BodyMeasurementResponseDto findLastMeasurementByUserId(Long userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+
+        BodyMeasurement latest = bodyMeasurementRepository
+                .findTopByUserOrderByCreatedTimeDesc(user)
+                .orElseThrow(() -> new ResourceNotFoundException("No body measurement found for user"));
+
+        return convertToResponseDto(latest);
+    }
+
+    @Override
     public List<BodyMeasurementResponseDto> findAllBodyMeasurement() {
         // Tüm ölçümleri bul ve DTO listesine dönüştür
         return bodyMeasurementRepository.findAll().stream()

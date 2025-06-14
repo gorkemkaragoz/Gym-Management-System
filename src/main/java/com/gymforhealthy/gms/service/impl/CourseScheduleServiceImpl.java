@@ -187,16 +187,23 @@ public class CourseScheduleServiceImpl implements CourseScheduleService {
 
         // 3. DTO'ya çevirip dön
         return schedules.stream()
-                .map(sched -> CourseScheduleOverviewResponseDto.builder()
-                        .scheduleId(sched.getId())
-                        .courseName(sched.getCourse().getName())
-                        .maxCapacity(sched.getCourse().getMaxCapacity())
-                        .trainerId(trainer.getId())
-                        .trainerName(trainer.getFirstName() + " " + trainer.getLastName())
-                        .courseDate(sched.getCourseDate())
-                        .startTime(sched.getStartTime())
-                        .endTime(sched.getEndTime())
-                        .build())
+                .map(sched -> {
+                    int activeStudentCount = (int) sched.getEnrollments().stream()
+                            .filter(e -> e.getStatus().name().equals("ACTIVE"))
+                            .count();
+
+                    return CourseScheduleOverviewResponseDto.builder()
+                            .scheduleId(sched.getId())
+                            .courseName(sched.getCourse().getName())
+                            .maxCapacity(sched.getCourse().getMaxCapacity())
+                            .currentStudentCount(activeStudentCount) // 🔥 Burayı ekledik
+                            .trainerId(trainer.getId())
+                            .trainerName(trainer.getFirstName() + " " + trainer.getLastName())
+                            .courseDate(sched.getCourseDate())
+                            .startTime(sched.getStartTime())
+                            .endTime(sched.getEndTime())
+                            .build();
+                })
                 .toList();
     }
 
