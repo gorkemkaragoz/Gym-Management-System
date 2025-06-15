@@ -5,6 +5,7 @@ import com.gymforhealthy.gms.dto.responseDto.BodyMeasurementResponseDto;
 import com.gymforhealthy.gms.service.BodyMeasurementService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,8 +18,12 @@ public class BodyMeasurementController {
     private BodyMeasurementService bodyMeasurementService;
 
     @PostMapping
-    public ResponseEntity<BodyMeasurementResponseDto> save(@RequestBody BodyMeasurementRequestDto bodyMeasurementRequestDto) {
-        return ResponseEntity.ok(bodyMeasurementService.saveBodyMeasurement(bodyMeasurementRequestDto));
+    public ResponseEntity<BodyMeasurementResponseDto> save(@RequestBody BodyMeasurementRequestDto bodyMeasurementRequestDto, Authentication authentication) {
+        try {
+            return ResponseEntity.ok(bodyMeasurementService.saveBodyMeasurement(bodyMeasurementRequestDto, authentication));
+        } catch (java.nio.file.AccessDeniedException e) {
+            return ResponseEntity.status(403).build();
+        }
     }
 
 
@@ -30,11 +35,6 @@ public class BodyMeasurementController {
     @GetMapping
     public ResponseEntity<List<BodyMeasurementResponseDto>> getAll() {
         return ResponseEntity.ok(bodyMeasurementService.findAllBodyMeasurement());
-    }
-
-    @GetMapping("/last/{userId}")
-    public ResponseEntity<BodyMeasurementResponseDto> getLastMeasurementForUser(@PathVariable Long userId) {
-        return ResponseEntity.ok(bodyMeasurementService.findLastMeasurementByUserId(userId));
     }
 
     @GetMapping("/{id}")

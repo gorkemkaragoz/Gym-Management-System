@@ -14,21 +14,31 @@ public interface CourseEnrollmentRepository extends JpaRepository<CourseEnrollme
     boolean existsByUserIdAndCourseScheduleId(Long userId, Long courseScheduleId);
 
     @Query("""
-    SELECT CASE WHEN COUNT(e) > 0 THEN true ELSE false END
-    FROM CourseEnrollment e
-    WHERE e.user.id = :userId
-      AND e.courseSchedule.courseDate = :date
-      AND (
-            e.courseSchedule.startTime < :endTime
-        AND e.courseSchedule.endTime > :startTime
-      )
-      AND e.status = 'ACTIVE'""")
+            SELECT CASE WHEN COUNT(e) > 0 THEN true ELSE false END
+            FROM CourseEnrollment e
+            WHERE e.user.id = :userId
+              AND e.courseSchedule.courseDate = :date
+              AND (
+                    e.courseSchedule.startTime < :endTime
+                AND e.courseSchedule.endTime > :startTime
+              )
+              AND e.status = 'ACTIVE'""")
     boolean existsUserScheduleConflict(
             @Param("userId") Long userId,
             @Param("date") LocalDate date,
             @Param("startTime") LocalTime startTime,
             @Param("endTime") LocalTime endTime
     );
+
+    @Query("""
+                SELECT COUNT(e) > 0
+                FROM CourseEnrollment e
+                WHERE e.courseSchedule.trainer.id = :trainerId
+                  AND e.user.id = :studentId
+                  AND e.status = 'ACTIVE'
+            """)
+    boolean existsByTrainerAndStudent(@Param("trainerId") Long trainerId, @Param("studentId") Long studentId);
+
     long countByCourseScheduleId(Long courseScheduleId);
 
     void deleteByUserIdAndCourseScheduleId(Long userId, Long courseScheduleId);

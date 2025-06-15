@@ -6,14 +6,17 @@ import com.gymforhealthy.gms.entity.BodyMeasurement;
 import com.gymforhealthy.gms.entity.User;
 import com.gymforhealthy.gms.exception.ResourceNotFoundException;
 import com.gymforhealthy.gms.repository.BodyMeasurementRepository;
+import com.gymforhealthy.gms.repository.CourseEnrollmentRepository;
 import com.gymforhealthy.gms.repository.UserRepository;
 import com.gymforhealthy.gms.service.BodyMeasurementService;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.nio.file.AccessDeniedException;
 import java.util.List;
 
 @Service
@@ -22,28 +25,33 @@ public class BodyMeasurementServiceImpl implements BodyMeasurementService {
 
     private final BodyMeasurementRepository bodyMeasurementRepository;
     private final UserRepository userRepository;
+    private final CourseEnrollmentRepository courseEnrollmentRepository;
     private final ModelMapper modelMapper;
 
     @Override
-    public BodyMeasurementResponseDto saveBodyMeasurement(BodyMeasurementRequestDto bodyMeasurementRequestDto) {
-        // DTO'yu entity'ye dönüştür
-        BodyMeasurement bodyMeasurement = modelMapper.map(bodyMeasurementRequestDto, BodyMeasurement.class);
-        bodyMeasurement.setId(null); // Yeni kayıt için ID'yi sıfırla
+    public BodyMeasurementResponseDto saveBodyMeasurement(BodyMeasurementRequestDto requestDto, Authentication authentication) throws AccessDeniedException {
+        String trainerEmail = authentication.getName();
+        User trainer = userRepository.findByEmail(trainerEmail)
+                .orElseThrow(() -> new ResourceNotFoundException("Trainer not found with email: " + trainerEmail));
 
-        // Kullanıcıyı bul, yoksa hata fırlat
-        User user = userRepository.findById(bodyMeasurementRequestDto.getUserId())
-                .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + bodyMeasurementRequestDto.getUserId()));
+        User student = userRepository.findById(requestDto.getUserId())
+                .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + requestDto.getUserId()));
 
-        if (!user.getRole().getName().equalsIgnoreCase("MEMBER")) {
+        if (!student.getRole().getName().equalsIgnoreCase("MEMBER")) {
             throw new IllegalArgumentException("Only users with MEMBER role can have measurement.");
         }
 
-        bodyMeasurement.setUser(user);
+        boolean isStudentOfTrainer = courseEnrollmentRepository.existsByTrainerAndStudent(trainer.getId(), student.getId());
+        if (!isStudentOfTrainer) {
+            throw new AccessDeniedException("You are not allowed to add measurement for this user.");
+        }
 
-        // BMI hesapla ve entity'ye set et
+        BodyMeasurement bodyMeasurement = modelMapper.map(requestDto, BodyMeasurement.class);
+        bodyMeasurement.setId(null);
+        bodyMeasurement.setUser(student);
+
         calculateAndSetBmi(bodyMeasurement);
 
-        // Entity'yi kaydet ve DTO'ya dönüştür
         bodyMeasurement = bodyMeasurementRepository.save(bodyMeasurement);
         return convertToResponseDto(bodyMeasurement);
     }

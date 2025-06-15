@@ -1,6 +1,7 @@
 package com.gymforhealthy.gms.dto.requestDto;
 
 import lombok.*;
+
 import java.math.BigDecimal;
 
 @Getter
