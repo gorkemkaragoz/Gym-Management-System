@@ -21,5 +21,4 @@
         UserResponseDto createUserByAdmin(UserManagementRequestDto requestDto);
         List<UserManagementResponseDto> findAllByRoleName(String roleName);
         UserManagementResponseDto updatePartialUser(Long id, UserManagementRequestDto requestDto);
-
     }

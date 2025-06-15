@@ -47,6 +47,7 @@ public class User {
     @Column(name = "tc_no", unique = true, nullable = false)
     private String tcNo;
 
+
     @Column(name = "account_locked")
     private Boolean accountLocked = false;
 

@@ -1,6 +1,7 @@
 package com.gymforhealthy.gms.controller;
 
 import com.gymforhealthy.gms.service.S3Service;
+import com.gymforhealthy.gms.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,4 +25,6 @@ public class PhotoController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Upload failed: " + e.getMessage());
         }
     }
+
+
 }

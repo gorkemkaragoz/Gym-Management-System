@@ -48,9 +48,7 @@ public class SecurityConfig {
 
                         // Role-based diğer endpointler
                         .requestMatchers(HttpMethod.GET, "/api/v1/**").hasAnyAuthority("ADMIN", "TRAINER", "MEMBER")
-                        .requestMatchers(HttpMethod.POST, "/api/v1/**").hasAnyAuthority("ADMIN", "TRAINER")
-                        .requestMatchers(HttpMethod.PUT, "/api/v1/**").hasAuthority("ADMIN")
-                        .requestMatchers(HttpMethod.PATCH, "/api/v1/**").hasAuthority("ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/api/v1/**").hasAnyAuthority("ADMIN", "TRAINER")                        .requestMatchers(HttpMethod.PATCH, "/api/v1/**").hasAuthority("ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/api/v1/**").hasAuthority("ADMIN")
 
                         .anyRequest().authenticated()
