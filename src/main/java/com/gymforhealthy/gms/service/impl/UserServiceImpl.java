@@ -279,6 +279,14 @@ public class UserServiceImpl implements UserService {
                             .tcNo(user.getTcNo())
                             .roleName(user.getRole().getName());
 
+                    // ✅ Fotoğrafı ekle (en son yüklenen fotoğraf)
+                    if (user.getUserPhotos() != null && !user.getUserPhotos().isEmpty()) {
+                        user.getUserPhotos().stream()
+                                .max(java.util.Comparator.comparing(UserPhoto::getUploadedAt))
+                                .ifPresent(photo -> builder.photoUrl(photo.getPhotoUrl()));
+                    }
+
+                    // 🎓 Eğitmen ise sertifika bilgilerini ekle
                     if (user.getRole().getName().equalsIgnoreCase("Trainer")
                             && user.getTrainerCertificates() != null
                             && !user.getTrainerCertificates().isEmpty()) {
@@ -288,6 +296,7 @@ public class UserServiceImpl implements UserService {
                                 .issuedDate(cert.getIssuedDate());
                     }
 
+                    // 🧍 Üye ise üyelik bilgilerini ekle
                     if (user.getRole().getName().equalsIgnoreCase("Member")
                             && user.getMemberships() != null
                             && !user.getMemberships().isEmpty()) {
@@ -299,6 +308,7 @@ public class UserServiceImpl implements UserService {
                     return builder.build();
                 }).collect(Collectors.toList());
     }
+
 
     private UserResponseDto convertToResponseDto(User user) {
         UserResponseDto userResponseDto = modelMapper.map(user, UserResponseDto.class);
@@ -317,8 +327,11 @@ public class UserServiceImpl implements UserService {
                 .roleName(user.getRole().getName());
 
         if (user.getUserPhotos() != null && !user.getUserPhotos().isEmpty()) {
-            builder.photoUrl(user.getUserPhotos().get(0).getPhotoUrl());
+            user.getUserPhotos().stream()
+                    .max(java.util.Comparator.comparing(UserPhoto::getUploadedAt))
+                    .ifPresent(photo -> builder.photoUrl(photo.getPhotoUrl()));
         }
+
 
         if (user.getRole().getName().equalsIgnoreCase("Trainer")
                 && user.getTrainerCertificates() != null
