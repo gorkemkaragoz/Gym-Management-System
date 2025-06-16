@@ -1,3 +1,4 @@
+// src/main/java/com/gymforhealthy/gms/service/S3Service.java
 package com.gymforhealthy.gms.service;
 
 import com.amazonaws.services.s3.AmazonS3;
@@ -27,9 +28,7 @@ public class S3Service {
         metadata.setContentLength(file.getSize());
         metadata.setContentType(file.getContentType());
 
-        // ACL kaldırıldı çünkü bucket ACL desteklemiyor
         amazonS3.putObject(new PutObjectRequest(bucketName, fileName, file.getInputStream(), metadata));
-
         return amazonS3.getUrl(bucketName, fileName).toString();
     }
 }

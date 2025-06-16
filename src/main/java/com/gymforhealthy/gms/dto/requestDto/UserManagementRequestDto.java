@@ -26,4 +26,5 @@ public class UserManagementRequestDto {
     private String packageName;
     private String membershipStatus;
 
+    private String photoUrl;
 }

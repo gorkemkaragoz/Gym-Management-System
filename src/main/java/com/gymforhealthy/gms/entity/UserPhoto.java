@@ -1,8 +1,9 @@
+// src/main/java/com/gymforhealthy/gms/entity/UserPhoto.java
 package com.gymforhealthy.gms.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import java.time.LocalDateTime;
 
 @Getter
@@ -17,15 +18,13 @@ public class UserPhoto {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Lob
-    @Column(name = "photo")
-    private byte[] photo;
+    @Column(name = "photo_url", nullable = false, length = 1000)
+    private String photoUrl;
 
-    @Column(name = "uploaded_at")
+    @Column(name = "uploaded_at", nullable = false)
     private LocalDateTime uploadedAt;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
-    @JsonBackReference
     private User user;
 }

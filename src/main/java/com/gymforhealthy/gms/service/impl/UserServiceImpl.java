@@ -14,8 +14,10 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -26,6 +28,7 @@ public class UserServiceImpl implements UserService {
     private final ModelMapper modelMapper;
     private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
+    private final UserPhotoRepository userPhotoRepository;
     private final RoleRepository roleRepository;
     private final TrainerCertificateRepository trainerCertificateRepository;
     private final MembershipPackageRepository membershipPackageRepository;
@@ -65,6 +68,14 @@ public class UserServiceImpl implements UserService {
 
         // 3. Kullanıcıyı kaydet (ID oluşması için)
         user = userRepository.save(user);
+
+        if (requestDto.getPhotoUrl() != null) {
+            UserPhoto up = new UserPhoto();
+            up.setUser(user);
+            up.setPhotoUrl(requestDto.getPhotoUrl());
+            up.setUploadedAt(LocalDateTime.now());
+            userPhotoRepository.save(up);
+        }
 
         // 4. Eğer Trainer ise sertifika ekle
         if (role.getName().equalsIgnoreCase("TRAINER")
@@ -159,6 +170,15 @@ public class UserServiceImpl implements UserService {
             }
         }
 
+        // Kullanıcı fotoğrafını güncelle
+        if (requestDto.getPhotoUrl() != null) {
+            UserPhoto up = user.getUserPhotos().stream().findFirst().orElse(new UserPhoto());
+            up.setUser(user);
+            up.setPhotoUrl(requestDto.getPhotoUrl());
+            up.setUploadedAt(LocalDateTime.now());
+            userPhotoRepository.save(up);
+        }
+
         return convertToManagementDto(user);
     }
 
@@ -244,7 +264,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<UserManagementResponseDto> getAllMembersAndTrainers() {
-        List<User> users = userRepository.findAll();
+        List<User> users = userRepository.findAllUsersWithPhotos();
 
         return users.stream()
                 .filter(user -> user.getRole().getName().equalsIgnoreCase("Member") ||
@@ -295,6 +315,10 @@ public class UserServiceImpl implements UserService {
                 .gender(user.getGender())
                 .tcNo(user.getTcNo())
                 .roleName(user.getRole().getName());
+
+        if (user.getUserPhotos() != null && !user.getUserPhotos().isEmpty()) {
+            builder.photoUrl(user.getUserPhotos().get(0).getPhotoUrl());
+        }
 
         if (user.getRole().getName().equalsIgnoreCase("Trainer")
                 && user.getTrainerCertificates() != null

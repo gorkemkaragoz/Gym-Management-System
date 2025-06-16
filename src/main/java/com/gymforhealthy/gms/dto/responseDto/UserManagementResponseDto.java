@@ -26,4 +26,7 @@ public class UserManagementResponseDto {
     private String certificateName;
     private String issuedBy;
     private LocalDate issuedDate;
+
+    private String photoUrl;
+
 }

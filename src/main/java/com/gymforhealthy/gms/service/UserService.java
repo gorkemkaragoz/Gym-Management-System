@@ -4,6 +4,7 @@
     import com.gymforhealthy.gms.dto.requestDto.UserRequestDto;
     import com.gymforhealthy.gms.dto.responseDto.UserManagementResponseDto;
     import com.gymforhealthy.gms.dto.responseDto.UserResponseDto;
+    import org.springframework.web.multipart.MultipartFile;
 
     import java.util.List;
 

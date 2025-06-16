@@ -26,11 +26,11 @@ public class UserController {
         return ResponseEntity.ok(userService.saveUser(userRequestDto));
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/management")
-    public ResponseEntity<String> createUserByAdmin(@RequestBody UserManagementRequestDto requestDto) {
-        userService.createUserByAdmin(requestDto);
-        return ResponseEntity.ok("User created successfully");
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<UserResponseDto> createUserByAdmin(@RequestBody UserManagementRequestDto requestDto) {
+        UserResponseDto savedUser = userService.createUserByAdmin(requestDto);
+        return ResponseEntity.ok(savedUser); // Artık userId dönecek
     }
 
     @PatchMapping("/{id}")
