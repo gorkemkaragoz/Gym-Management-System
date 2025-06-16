@@ -8,7 +8,7 @@ import lombok.*;
 @AllArgsConstructor
 @Builder
 public class CourseEnrollmentResponseDto {
-    private Long id;             // ← save için lazım
+    private Long id;
     private Long userId;
     private Long courseId;
     private Long scheduleId;
@@ -18,5 +18,5 @@ public class CourseEnrollmentResponseDto {
     private String startTime;
     private String endTime;
 
-    private String status;       // ← ACTIVE, CANCELLED, vs.
+    private String status;
 }

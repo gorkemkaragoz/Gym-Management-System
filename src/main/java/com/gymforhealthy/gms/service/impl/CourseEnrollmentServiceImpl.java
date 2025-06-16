@@ -27,7 +27,6 @@ public class CourseEnrollmentServiceImpl implements CourseEnrollmentService {
     private final CourseEnrollmentRepository courseEnrollmentRepository;
     private final UserRepository userRepository;
     private final CourseScheduleRepository courseScheduleRepository;
-    private final ModelMapper modelMapper;
 
     @Override
     public CourseEnrollmentResponseDto saveCourseEnrollment(CourseEnrollmentRequestDto requestDto) {

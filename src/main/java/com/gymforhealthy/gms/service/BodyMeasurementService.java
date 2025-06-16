@@ -8,7 +8,8 @@ import java.nio.file.AccessDeniedException;
 import java.util.List;
 
 public interface BodyMeasurementService {
-    BodyMeasurementResponseDto saveBodyMeasurement(BodyMeasurementRequestDto bodyMeasurementRequestDto, Authentication authentication) throws AccessDeniedException;    BodyMeasurementResponseDto updateBodyMeasurement(Long id, BodyMeasurementRequestDto bodyMeasurementRequestDto);
+    BodyMeasurementResponseDto saveBodyMeasurement(BodyMeasurementRequestDto bodyMeasurementRequestDto, Authentication authentication) throws AccessDeniedException;
+    BodyMeasurementResponseDto updateBodyMeasurement(Long id, BodyMeasurementRequestDto bodyMeasurementRequestDto);
     BodyMeasurementResponseDto findLastMeasurementByUserId(Long userId);
     List<BodyMeasurementResponseDto> findAllBodyMeasurement();
     BodyMeasurementResponseDto findBodyMeasurementById(Long id);

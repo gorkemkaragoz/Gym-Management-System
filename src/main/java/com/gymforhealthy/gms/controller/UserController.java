@@ -64,8 +64,7 @@ public class UserController {
 
     @GetMapping("/me")
     public ResponseEntity<UserResponseDto> getCurrentUser(Authentication authentication) {
-        // authentication.getName() genellikle "username" veya "email" döner.
-        // Sizin uygulamanızda login token içinde email varsa, bu email değeri burada gelir.
+
         String email = authentication.getName();
         UserResponseDto currentUserDto = userService.findByEmail(email);
         return ResponseEntity.ok(currentUserDto);
